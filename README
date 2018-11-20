@@ -1,0 +1,125 @@
+Description:
+
+  unbound.mod is a libunbound based asynchronous dns resolve module for eggdrop.
+
+Installation:
+
+  1. Install libunbound (part of unbound)
+  2. Put unbound.mod in path/to/eggdrop/src/mod.
+  3. (Re)compile eggdrop:
+       (make distclean)
+       ./configure
+       make config
+       make
+       make install
+  4. Edit eggdrop.conf to disable dns.mod and enable unbound.mod instead:
+       # loadmodule dns
+       loadmodule unbound
+
+Demo:
+
+  .console +d
+  [...]
+
+  .tcl dnslookup eggheads.org foo
+  [06:18:19] tcl: builtin dcc call: *dcc:tcl -HQ 1 dnslookup eggheads.org foo
+  [06:18:19] tcl: evaluate (.tcl): dnslookup eggheads.org foo
+  [06:18:19] Unbound: resolve name eggheads.org rrtype 1.
+  Tcl: 
+  [06:18:19] Unbound: callback.
+  [06:18:19] Unbound: The ip4 of host eggheads.org is 38.109.218.218.
+  [06:18:19] Tcl error [foo]: invalid command name "foo"
+  invalid command name "foo"
+      while executing
+  "foo 38.109.218.218 eggheads.org 1"
+
+  .tcl dnslookup 38.109.218.218 foo
+  [06:18:26] tcl: builtin dcc call: *dcc:tcl -HQ 1 dnslookup 38.109.218.218 foo
+  [06:18:26] tcl: evaluate (.tcl): dnslookup 38.109.218.218 foo
+  [06:18:26] Unbound: resolve name 218.218.109.38.in-addr.arpa rrtype 12.
+  Tcl: 
+  [06:18:26] Unbound: callback.
+  [06:18:26] Unbound: The host of ip 38.109.218.218 is edward.eggheads.org.
+  [06:18:26] Tcl error [foo]: invalid command name "foo"
+  invalid command name "foo"
+      while executing
+  "foo 38.109.218.218 edward.eggheads.org 1"
+
+  .tcl dnslookup google.de foo
+  [06:20:42] tcl: builtin dcc call: *dcc:tcl -HQ 1 dnslookup google.de foo
+  [06:20:42] tcl: evaluate (.tcl): dnslookup google.de foo
+  [06:20:42] Unbound: resolve name google.de rrtype 1.
+  Tcl: 
+  [06:20:42] Unbound: callback.
+  [06:20:42] Unbound: The ip4 of host google.de is 216.58.212.195.
+  [06:20:42] Tcl error [foo]: invalid command name "foo"
+  invalid command name "foo"
+      while executing
+  "foo 216.58.212.195 google.de 1"
+
+  .set prefer-ipv6 1
+
+  .tcl dnslookup google.de foo
+  [03:22:44] tcl: builtin dcc call: *dcc:tcl -HQ 1 dnslookup google.de foo
+  [03:22:44] tcl: evaluate (.tcl): dnslookup google.de foo
+  [03:22:44] Unbound: resolve name google.de rrtype 28.
+  Tcl: 
+  [03:22:44] Unbound: callback.
+  [03:22:44] Unbound: The ip6 of host google.de is 2a00:1450:4001:818::2003.
+  [03:22:44] Tcl error [foo]: invalid command name "foo"
+  invalid command name "foo"
+      while executing
+  "foo 2a00:1450:4001:818::2003 google.de 1"
+
+  .tcl dnslookup 192.168.0.4 foo
+  [06:22:16] tcl: builtin dcc call: *dcc:tcl -HQ 1 dnslookup 192.168.0.4 foo
+  [06:22:16] tcl: evaluate (.tcl): dnslookup 192.168.0.4 foo
+  [06:22:16] Unbound: resolve name 4.0.168.192.in-addr.arpa rrtype 12.
+  Tcl: 
+  [06:22:16] Unbound: callback.
+  [06:22:16] Unbound: No host of ip 192.168.0.4.
+  [06:22:16] Tcl error [foo]: invalid command name "foo"
+  invalid command name "foo"
+      while executing
+  "foo 192.168.0.4 192.168.0.4 0"
+  .tcl dnslookup isis foo             
+  [06:22:30] tcl: builtin dcc call: *dcc:tcl -HQ 1 dnslookup isis foo
+  [06:22:30] tcl: evaluate (.tcl): dnslookup isis foo
+  [06:22:30] Unbound: resolve name isis rrtype 28.
+  Tcl: 
+  [06:22:30] Unbound: callback.
+  [06:22:30] Unbound: No ip6 of host isis.
+  [06:22:30] Unbound: resolve name isis rrtype 1.
+  [06:22:30] Unbound: callback.
+  [06:22:30] Unbound: The ip4 of host isis is 192.168.0.4.
+  [06:22:30] Tcl error [foo]: invalid command name "foo"
+  invalid command name "foo"
+      while executing
+  "foo 192.168.0.4 isis 1"
+
+  .status all
+  [...]
+    Module: unbound, v 0.1
+      Unbound version 1.8.1
+      1 hostbyip resolved successfully
+      1 hostbyip resolved unsuccessfully
+      4 ipbyhost resolved successful
+      0 ipbyhost resolved unsuccessfully
+  [...]
+
+License:
+
+  MIT License
+  Copyright (c) 2018 Michael Ortmann
+
+Website:
+
+  https://gitlab.com/mortmann/unbound.mod
+
+Links and Thanks to everyone involved there:
+
+  https://eggheads.org/
+  https://nlnetlabs.nl/projects/unbound/about/
+
+Enjoy,
+Michael
