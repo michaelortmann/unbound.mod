@@ -1,5 +1,5 @@
 /* SPDX-License-Identifier: MIT */
-/* Copyright (c) 2018 Michael Ortmann */
+/* Copyright (c) 2018 - 2022 Michael Ortmann */
 
 #define MODULE_NAME "unbound"
 
@@ -201,7 +201,7 @@ static void unbound_report(int idx, int details)
     dprintf(idx, "    Unbound version %s\n", ub_version());
     dprintf(idx, "    %i hostbyip resolved successfully\n", count_hostbyip_successfully);
     dprintf(idx, "    %i hostbyip resolved unsuccessfully\n", count_hostbyip_unsuccessfully);
-    dprintf(idx, "    %i ipbyhost resolved successful\n", count_ipbyhost_successfully);
+    dprintf(idx, "    %i ipbyhost resolved successfully\n", count_ipbyhost_successfully);
     dprintf(idx, "    %i ipbyhost resolved unsuccessfully\n", count_ipbyhost_unsuccessfully);
   }
 }
@@ -257,7 +257,7 @@ char *unbound_start(Function *global_funcs)
 
   global = global_funcs;
 
-  module_register(MODULE_NAME, unbound_table, 0, 1);
+  module_register(MODULE_NAME, unbound_table, 1, 0);
 
   if (!module_depend(MODULE_NAME, "eggdrop", 108, 0)) {
     module_undepend(MODULE_NAME);
