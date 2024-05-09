@@ -99,18 +99,18 @@ Demo:
 
   .status all
   [...]
-    Module: unbound, v 0.1
-      Unbound version 1.8.1
+    Module: unbound, v 1.1
+      unbound version: 1.20.0 (header version 1.20.0)
       1 hostbyip resolved successfully
       1 hostbyip resolved unsuccessfully
-      4 ipbyhost resolved successful
+      4 ipbyhost resolved successfully
       0 ipbyhost resolved unsuccessfully
   [...]
 
 License:
 
   MIT License
-  Copyright (c) 2018 - 2022 Michael Ortmann
+  Copyright (c) 2018 - 2024 Michael Ortmann
 
 Website:
 
